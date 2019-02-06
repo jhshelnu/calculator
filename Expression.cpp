@@ -129,6 +129,10 @@ string Expression::get_type() const {
     return getStringType(type);
 }
 
+/*
+ * Function to compute the result of an expression given the variable table
+ * Returns the integer result after a PEMDAS order of evaluation on the overall expression
+ */
 int Expression::get_result(map<string, int>& variables) const {
     if (getStringType(type) == "arithmetic") {
         stack<int> operands;
@@ -152,6 +156,9 @@ int Expression::get_result(map<string, int>& variables) const {
     return -1; //Never makes it here, main program won't call this function for non-arithmetic functions
 }
 
+/*
+ * Function to tokenize the expression for evaluation
+ */
 void Expression::setTokens() {
     // keeps track of what token we are currently making
     // does not consider if the token is valid or not
@@ -204,6 +211,7 @@ void Expression::setTokens() {
     }
 }
 
+// Determines if the given expression is arithmetic, assignment, or invalid
 void Expression::setType() {
     enum States {operand, func};
     bool eqtrue = false; // set to true if = is encountered
@@ -247,6 +255,7 @@ void Expression::setType() {
     }
 }
 
+// Function to arrange the tokens in postfix order for evaluation
 void Expression::setPostfix() {
     if (type != arithmetic) {return;}
     
@@ -278,6 +287,7 @@ void Expression::setPostfix() {
     }  
 }
 
+// Function to arrange the tokens in prefix notation
 void Expression::setPrefix() {
     if (type != arithmetic) {return;}
     
@@ -302,6 +312,7 @@ void Expression::setPrefix() {
     prefix = tmp.top();
 }
 
+// Function to add parentheses to the expression to indicate the order of operations under PEMDAS
 void Expression::setParenthesized() {
     if (type != arithmetic) {return;}
     

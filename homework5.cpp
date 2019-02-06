@@ -16,15 +16,16 @@ using namespace std;
 map<string, int> variables; // variable look up table
 
 void updateLookupTable(const Expression& e) {
+    // expression e is of the form "a = b", tokenized array is {a, =, b}, where a is the variable name and b is the variable value
     string variableName = e.get_tokenized()[0].get_token();
     int variableValue;
-    
     istringstream stream(e.get_tokenized()[2].get_token());
     stream >> variableValue;
     
     variables.insert(pair<string,int>(variableName, variableValue));
 }
 
+// helper function for debugging - prints all the stored variable names and values
 void printLookupTable() {
     cout << "contents of the variable look up table: " << endl;
     for (map<string, int>::iterator it = variables.begin(); it != variables.end(); it++) {

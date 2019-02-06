@@ -40,6 +40,7 @@ Token::Token(string s) {
     set(s);
 }
 
+// Function to determine the type of the token - identifier, integer, operator, equals sign, parenthesis, invalid
 void Token::set(string s) {
     // valid tokens will have their type changed
     type = INVALID;
@@ -103,6 +104,7 @@ void Token::set(string s) {
 
 int Token::value() const {
     if (type == INT) {
+        // graded on C++98, stoi() not allowed
         int intVal;
         istringstream(token) >> intVal;
         return intVal;
